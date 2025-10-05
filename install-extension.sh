@@ -1,0 +1,25 @@
+#!/bin/bash
+
+echo "🎯 Productivity Harnesser Extension Installer"
+echo "=============================================="
+
+EXTENSION_PATH="/Users/elcdevmbp/IS_581/ProductivityHarnesser/extension"
+
+echo "📦 Extension files ready at: $EXTENSION_PATH"
+echo ""
+echo "🚀 Installation Steps:"
+echo ""
+echo "1. Open Chrome and go to: chrome://extensions/"
+echo "2. Enable 'Developer mode' (toggle in top right)"
+echo "3. Click 'Load unpacked'"
+echo "4. Select this folder: $EXTENSION_PATH"
+echo "5. Pin the extension to your toolbar"
+echo ""
+echo "🎯 After installation:"
+echo "1. Click the extension icon in your browser"
+echo "2. Set your daily goals (minimum 10 characters)"
+echo "3. Enable blocking if not already on"
+echo "4. Try visiting YouTube - it will be blocked!"
+echo ""
+echo "✅ Extension will now block distracting websites system-wide!"
+echo "📱 For mobile, use the web app at: http://localhost:3000"

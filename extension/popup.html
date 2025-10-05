@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productivity Harnesser</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="popup-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🎯 Productivity Harnesser</h1>
+            <div class="status-indicator" id="status-indicator">
+                <span class="status-dot"></span>
+                <span id="status-text">Loading...</span>
+            </div>
+        </div>
+
+        <!-- Goals Section -->
+        <div class="section" id="goals-section">
+            <h3>📝 Daily Goals</h3>
+            <div id="goals-status">
+                <p id="goals-text">Set your goals to unlock focus mode</p>
+                <textarea id="goals-input" placeholder="What do you want to accomplish today?" rows="3"></textarea>
+                <button id="save-goals" class="btn btn-primary">Set Goals</button>
+            </div>
+        </div>
+
+        <!-- Blocking Status -->
+        <div class="section">
+            <h3>🛡️ Distraction Blocker</h3>
+            <div class="toggle-container">
+                <label class="toggle">
+                    <input type="checkbox" id="blocking-toggle">
+                    <span class="slider"></span>
+                </label>
+                <span id="blocking-status">Active</span>
+            </div>
+            <p class="status-description">Blocking distracting websites</p>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="section">
+            <h3>📊 Today's Progress</h3>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number" id="blocked-count">0</span>
+                    <span class="stat-label">Sites Blocked</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number" id="focus-time">0h</span>
+                    <span class="stat-label">Focus Time</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="section">
+            <h3>⚡ Quick Actions</h3>
+            <div class="action-buttons">
+                <button id="manage-sites" class="btn btn-secondary">Manage Sites</button>
+                <button id="open-dashboard" class="btn btn-secondary">Full Dashboard</button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Stay focused, achieve more! 🚀</p>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

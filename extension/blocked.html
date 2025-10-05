@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access Blocked - Productivity Harnesser</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .blocked-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            color: #333;
+        }
+
+        .blocked-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #dc2626;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #6b7280;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .goals-reminder {
+            background: #f8fafc;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-left: 4px solid #2563eb;
+        }
+
+        .goals-reminder h3 {
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .goals-reminder p {
+            color: #4b5563;
+            font-style: italic;
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+
+        .btn-secondary:hover {
+            background: #e5e7eb;
+            transform: translateY(-1px);
+        }
+
+        .motivation {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .motivation p {
+            color: #1e40af;
+            font-weight: 500;
+        }
+
+        @media (max-width: 600px) {
+            .blocked-container {
+                padding: 2rem;
+                margin: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blocked-container">
+        <div class="blocked-icon">🚫</div>
+        <h1>Access Blocked</h1>
+        <p class="subtitle">
+            This website is blocked to help you stay focused on your goals. 
+            You're building better habits and working toward meaningful achievements!
+        </p>
+        
+        <div class="goals-reminder" id="goals-reminder">
+            <h3>🎯 Today's Goals</h3>
+            <p id="goals-text">Loading your goals...</p>
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-primary" onclick="openExtension()">
+                🎯 Return to Focus Mode
+            </button>
+            <button class="btn btn-secondary" onclick="temporaryBypass()">
+                ⏰ Temporary Bypass (5 min)
+            </button>
+        </div>
+
+        <div class="motivation">
+            <p>
+                💪 Remember: Every moment of focus brings you closer to your dreams. 
+                You've got this!
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Load user's goals
+        async function loadGoals() {
+            try {
+                const response = await chrome.runtime.sendMessage({ action: 'getStatus' });
+                if (response && response.dailyGoals) {
+                    document.getElementById('goals-text').textContent = response.dailyGoals;
+                } else {
+                    document.getElementById('goals-text').textContent = 'No goals set for today';
+                }
+            } catch (error) {
+                document.getElementById('goals-text').textContent = 'Unable to load goals';
+            }
+        }
+
+        function openExtension() {
+            chrome.runtime.sendMessage({ action: 'openPopup' });
+        }
+
+        function temporaryBypass() {
+            // This would implement temporary bypass in a real extension
+            alert('Temporary bypass would be implemented here (5 minutes)');
+        }
+
+        // Load goals when page loads
+        if (typeof chrome !== 'undefined' && chrome.runtime) {
+            loadGoals();
+        } else {
+            document.getElementById('goals-text').textContent = 'Extension not available';
+        }
+    </script>
+</body>
+</html>

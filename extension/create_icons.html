@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Extension Icons</title>
+</head>
+<body>
+    <canvas id="canvas" width="128" height="128" style="display: none;"></canvas>
+    <script>
+        // Create icon with canvas
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Background circle
+        ctx.fillStyle = '#2563eb';
+        ctx.beginPath();
+        ctx.arc(64, 64, 60, 0, 2 * Math.PI);
+        ctx.fill();
+        
+        // Target icon
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 8;
+        ctx.beginPath();
+        ctx.arc(64, 50, 20, 0, 2 * Math.PI);
+        ctx.stroke();
+        
+        // Center dot
+        ctx.fillStyle = 'white';
+        ctx.beginPath();
+        ctx.arc(64, 50, 6, 0, 2 * Math.PI);
+        ctx.fill();
+        
+        // Arrow pointing down
+        ctx.strokeStyle = 'white';
+        ctx.lineWidth = 6;
+        ctx.beginPath();
+        ctx.moveTo(64, 70);
+        ctx.lineTo(64, 90);
+        ctx.lineTo(54, 80);
+        ctx.moveTo(64, 90);
+        ctx.lineTo(74, 80);
+        ctx.stroke();
+        
+        // Convert to different sizes and download
+        const sizes = [16, 32, 48, 128];
+        sizes.forEach(size => {
+            const newCanvas = document.createElement('canvas');
+            newCanvas.width = size;
+            newCanvas.height = size;
+            const newCtx = newCanvas.getContext('2d');
+            newCtx.drawImage(canvas, 0, 0, size, size);
+            
+            newCanvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `icon${size}.png`;
+                a.click();
+                URL.revokeObjectURL(url);
+            });
+        });
+    </script>
+</body>
+</html>
