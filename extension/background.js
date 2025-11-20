@@ -89,7 +89,28 @@ async function checkAndBlockSite(tabId, url) {
     const isBlocked = blockedSites.some(site => {
       try {
         const urlObj = new URL(url);
-        return urlObj.hostname.includes(site) || site.includes(urlObj.hostname);
+        const hostname = urlObj.hostname.toLowerCase();
+        const siteLower = site.toLowerCase();
+        
+        // Handle sites with paths (e.g., "youtube.com/shorts")
+        if (siteLower.includes('/')) {
+          const siteParts = siteLower.split('/');
+          const siteHostname = siteParts[0];
+          const sitePath = siteParts.slice(1).join('/');
+          const urlPath = urlObj.pathname.toLowerCase();
+          
+          // Check if hostname matches and path matches (if specified)
+          if (hostname === siteHostname || hostname.endsWith('.' + siteHostname)) {
+            if (!sitePath || urlPath.startsWith('/' + sitePath) || urlPath === '/' + sitePath) {
+              return true;
+            }
+          }
+        } else {
+          // For sites without paths, check exact match or subdomain
+          return hostname === siteLower || hostname.endsWith('.' + siteLower);
+        }
+        
+        return false;
       } catch (e) {
         return false;
       }
